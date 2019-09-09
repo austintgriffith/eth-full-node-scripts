@@ -1,0 +1,20 @@
+#!/bin/bash
+chmod 0777 /home/nuc/*.log
+cd /home/nuc/go-ethereum; git pull > /home/nuc/pull.log; make geth > /home/nuc/make.log
+/home/nuc/go-ethereum/build/bin/geth version > /home/nuc/geth.log 2>&1
+/home/nuc/go-ethereum/build/bin/geth --allow-insecure-unlock --cache=4096 --maxpeers=50 --rpc --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi="db,eth,net,web3,personal,admin,debug,miner,txpool" >> /home/nuc/geth.log 2>&1 &
+bash <(curl https://get.parity.io -Lk)
+cd /home/nuc/;su - nuc -c 'parity --chain poa-chain-spec/spec.json --reserved-peers poa-chain-spec/bootnodes.txt --ports-shift=10 --jsonrpc-hosts=all --jsonrpc-interface=all --jsonrpc-cors=all --no-warp' >> /home/nuc/parity-xdai.log 2>&1 &
+
+chmod 0777 /home/nuc/*.log
+
+#cd /home/nuc/vanity-blockie-miner;npm run server > server.log  &
+
+#cd /home/nuc/vanity-blockie-miner;npm run miner > miner1.log &
+#cd /home/nuc/vanity-blockie-miner;npm run miner > miner2.log &
+#cd /home/nuc/vanity-blockie-miner;npm run miner > miner3.log &
+#cd /home/nuc/vanity-blockie-miner;npm run miner > miner4.log &
+
+#cd /home/nuc/vanity-blockie-miner/app;npm start > webserver.log &
+
+exit 0
